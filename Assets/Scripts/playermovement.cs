@@ -9,11 +9,11 @@ public class playermovement : MonoBehaviour
    
     void Update()
     {
-        float xMove = Input.GetAxis("Horizontal");
+        float xMove = Input.GetAxisRaw("Horizontal");
         float xMovement = xMove * Time.deltaTime;
  
 
-        float yMove = Input.GetAxis("Vertical");
+        float yMove = Input.GetAxisRaw("Vertical");
         float yMovement = yMove * Time.deltaTime;
         
         transform.Translate(xMovement, yMovement, 0);
