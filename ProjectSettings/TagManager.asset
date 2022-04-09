@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Car
+  - Goal
   layers:
   - Default
   - TransparentFX
