@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class playermovement : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class playermovement : MonoBehaviour
         if (collision.gameObject.tag == "Car")
         {
             Destroy(gameObject);
+            SceneManager.LoadScene("v1");
         }
     }
 
@@ -32,6 +35,8 @@ public class playermovement : MonoBehaviour
         if (other.gameObject.tag == "Goal")
         {
             Debug.Log("Area Cleared");
+            SceneManager.LoadScene("v1");
+            
         }
     }
 
