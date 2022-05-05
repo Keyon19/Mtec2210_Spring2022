@@ -10,50 +10,16 @@ public class playermovement : MonoBehaviour
     public float speed = 5.0f;
     public gamemanager gameManager;
 
-    public float moveDuration = 0.5f;
-    private float timeElapsed;
-    private Vector3 targetPosition;
-    private bool readyToMove = true;
-    private bool isMoving = false;
-   
-    public enum MovementType
-    {
-        Continuous,
-        Discrete,
-    }
-
-    public MovementType movementType;
-
-
-    private void Start()
-    {
-        targetPosition = transform.position;
-    }
      
-    void Update() { 
-    if (movementType == MovementType.Continuous)
-        {
-            ContinuousMovement();
-        }
-    else
-        {
+    void Update() {
+        
+        float xMove = Input.GetAxisRaw("Horizontal");
+        float yMove = Input.GetAxisRaw("Vertical");
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                
-                //DiscreteMovement(transform.position, transform.position + Vector3.up);
-            }
+        float xMovement = xMove * Time.deltaTime;
+        float yMovement = yMove * Time.deltaTime;
 
-            if (targetPosition != transform.position)
-            {
-                DiscreteMovement(transform.position, targetPosition);
-            }
-            //DiscreteMovement();
-        }
-    
-       
-    
-    
+        transform.Translate(xMovement, yMovement, 0);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -65,38 +31,7 @@ public class playermovement : MonoBehaviour
         }
     }
 
-    private void SetTargetPosition()
-    {
-        targetPosition = transform.position + (Vector3.up * .5f);
-    }
-
-    private void ContinuousMovement()
-    {
-        float xMove = Input.GetAxisRaw("Horizontal");
-        float yMove = Input.GetAxisRaw("Vertical");
-        
-        float xMovement = xMove * Time.deltaTime;
-        float yMovement = yMove * Time.deltaTime;
-
-        transform.Translate(xMovement, yMovement, 0);
-    }
-
-    private void DiscreteMovement(Vector3 start, Vector3 end)
-    {
-        if(timeElapsed < moveDuration)
-        {
-            timeElapsed += Time.deltaTime;
-
-            transform.position = Vector3.Lerp(start, end, timeElapsed / moveDuration);
-
-        }
-        else
-        {
-            transform.position = targetPosition;
-        }
-
-    }
-
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Goal")
